@@ -53,8 +53,9 @@ router.get('/:id', (req, res) => {
 
 // POST /api/users
 router.post('/', (req, res) => {
+  console.log(req.body)
     User.create({
-      username: req.body.username,
+      name: req.body.name,
       email: req.body.email,
       password: req.body.password,
       twitter: req.body.twitter,
@@ -63,9 +64,9 @@ router.post('/', (req, res) => {
     .then(dbUserData => {
       req.session.save(() => {
         req.session.user_id = dbUserData.id;
-        req.session.username = dbUserData.username;
-        // req.session.twitter = dbUserData.twitter;
-        // req.session.github = dbUserData.github;
+        req.session.name = dbUserData.name;
+        req.session.twitter = dbUserData.twitter;
+        req.session.github = dbUserData.github;
         req.session.loggedIn = true;
     
         res.json(dbUserData);
@@ -95,9 +96,9 @@ router.post('/', (req, res) => {
       req.session.save(() => {
         // declare session variables
         req.session.user_id = dbUserData.id;
-        req.session.username = dbUserData.username;
-        // req.session.twitter = dbUserData.twitter;
-        // req.session.github = dbUserData.github;
+        req.session.name = dbUserData.name;
+        req.session.twitter = dbUserData.twitter;
+        req.session.github = dbUserData.github;
         req.session.loggedIn = true;
   
         res.json({ user: dbUserData, message: 'You are now logged in!' });
